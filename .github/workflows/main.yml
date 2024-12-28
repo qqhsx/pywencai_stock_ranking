@@ -1,0 +1,41 @@
+name: Run Python Script and Commit TXT Files
+
+on:
+  push:
+    branches:
+      - main # 触发动作的分支
+  schedule:
+    # 每天UTC时间00:00运行，按需调整
+    - cron: '0 0 * * *' # 每天 UTC 时间的 00:00 触发
+
+jobs:
+  build-and-commit-txt:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.8' # 你的 Python 版本
+
+    - name: Configure Git
+      run: |
+        git config --local user.email "378600950@qq.com"
+        git config --local user.name "qqhsx"
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pywencai pandas
+
+    - name: Run Python script to fetch stock rankings
+      run: |
+        python pywencai_stock_ranking.py
+      
+    - name: Commit changes (if any)
+      run: |
+        git add .
+        git commit --allow-empty -m "Fetch stock rankings data"
+        git push
