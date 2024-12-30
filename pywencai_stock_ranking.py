@@ -7,7 +7,7 @@ from datetime import datetime, timedelta
 # 只查询 "人气排名" 的数据
 start_date = "20200630"  # 起始日期
 # end_date = datetime.today().strftime('%Y%m%d')  # 当前日期
-end_date = "20201231"  # 当前日期
+end_date = "20200701"  # 当前日期
 directory = "data"  # 指定保存目录
 
 # 创建保存目录
